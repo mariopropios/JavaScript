@@ -22,12 +22,15 @@ console.log("--- Ejercicio 1 ---");
 
 // a) Declara una variable "edad" con let, inicializada a 20.
 //    ReasÃ­gnale el valor 21 y muestra el resultado con console.log.
-// TODO
+let edad = 20;
+edad = 21;
+console.log(edad); // â†’ 21
 
 // b) Declara una constante "PI" con el valor 3.1416 y muÃ©strala.
 //    DespuÃ©s, intenta reasignarle el valor 3 en una nueva lÃ­nea.
 //    Ejecuta el archivo y anota en un comentario quÃ© error aparece.
-// TODO
+let PI = 3.1416;
+console.log(PI); // â†’ 3.1416
 
 
 // ============================================================
@@ -39,7 +42,7 @@ console.log("\n--- Ejercicio 2 ---");
 //    y asÃ­gnale un texto. Intenta usar console.log(mensaje) FUERA
 //    del bloque. Â¿QuÃ© ocurre?
 // TODO
-
+if(true)
 // b) Repite el mismo experimento pero declarando "mensaje2" con let
 //    dentro del bloque. Â¿QuÃ© diferencia observas al intentar
 //    usarla fuera del bloque? (usa try/catch o comÃ©ntalo si da error)
