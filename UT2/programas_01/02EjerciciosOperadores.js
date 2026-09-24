@@ -32,7 +32,7 @@ console.log(saldo);
 
 //Calcula el valor final sin ejecutar el código, después verifica el resultado.
 /*
-
+240
 */
 
 //Ejercicio 4 — Operador módulo (resto)
