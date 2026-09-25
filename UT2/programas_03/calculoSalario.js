@@ -20,8 +20,15 @@ if(salario>2000){
         salario += (salario * 0.15);
     }
 }
-
+/*
 alert("Nombre: "+nombre);
 alert("Apellidos: "+apellidos);
 alert("Salario: "+salario);
 alert("Edad: "+edad);
+*/
+
+//Para imprimir dentro del html:
+document.getElementById("nombre").textContent = nombre;
+document.getElementById("apellidos").textContent = apellidos;
+document.getElementById("edad").textContent = edad;
+document.getElementById("salario").textContent = salario;
