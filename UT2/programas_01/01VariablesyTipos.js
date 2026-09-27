@@ -311,3 +311,6 @@ console.log(persona1===persona2);
 //    persona1 === persona3. Comenta la diferencia con el apartado b).
 const persona3 = persona1;
 console.log(persona1===persona3);
+
+alert("Bienvenido a la aplicacion");
+console.log();
