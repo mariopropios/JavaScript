@@ -1,0 +1,76 @@
+UT3 · Ejercicios de números aleatorios en JavaScript
+Módulo: 0612 Desarrollo Web en Entorno Cliente · 2.º DAW
+Unidad de Trabajo: UT3. Utilización de objetos predefinidos del lenguaje
+RA	CE	Ejercicios
+RA03	a) Se han identificado los objetos predefinidos del lenguaje	Todos
+RA03	e) Se han escrito sentencias que utilicen los objetos predefinidos del lenguaje para interactuar con el usuario	6, 7, 10
+RA03	h) Se ha depurado y documentado el código	9
+RA02	e) Mecanismos de decisión · f) Bucles (repaso)	4, 5, 8, 10
+---
+
+Ejercicio 1. Decimal aleatorio
+
+Muestra por consola 5 números generados con `Math.random()`. Después responde en un comentario: ¿cuál es el menor valor posible? ¿Y el mayor?
+
+Ejercicio 2. Escalar el rango
+
+Genera un decimal aleatorio entre 0 y 10. Después genera otro entre 5 y 15.
+Pista: multiplica para ampliar el rango y suma para desplazarlo.
+
+Ejercicio 3. Dado de 6 caras
+
+Simula el lanzamiento de un dado y muestra `Has sacado un X`. Usa una plantilla literal.
+
+Ejercicio 4. Cara o cruz
+
+Genera un aleatorio y muestra "Cara" o "Cruz", con un 50 % de probabilidad para cada una.
+Pista: compara `Math.random()` con `0.5`.
+Ejercicio 5. Diez lanzamientos
+Lanza el dado 10 veces con un bucle `for`. Muestra cada resultado y la suma total.
+---
+
+Ejercicio 6. Rango personalizado
+
+Pide al usuario un mínimo y un máximo con `prompt`. Genera un entero en ese rango y muéstralo con `alert`.
+Valida estas tres cosas:
+que ambos valores sean números enteros;
+que el mínimo sea menor que el máximo;
+en caso de error, que se muestre un mensaje adecuado.
+Recuerda: `prompt` devuelve un string, así que tendrás que convertirlo.
+
+Ejercicio 7. Elemento aleatorio de un array
+
+Dado el array siguiente, muestra una fruta al azar:
+```javascript
+const frutas = ["manzana", "pera", "kiwi", "plátano"];
+```
+Pista: el índice debe estar entre `0` y `frutas.length - 1`.
+
+Ejercicio 8. PIN numérico
+
+Genera un PIN de 4 dígitos como string. El PIN puede empezar por 0: `"0371"` es un PIN válido.
+Pregunta de reflexión: ¿por qué no basta con mostrar directamente `enteroAleatorio(0, 9999)`?
+Ejercicio 9. ¿Es realmente uniforme? (depuración)
+Lanza el dado 60 000 veces y cuenta cuántas veces sale cada cara, usando un array de contadores. Muestra el resultado con `console.table()`.
+Después repite el experimento con esta versión alternativa, que usa `Math.round`:
+```javascript
+const enteroRound = (min, max) =>
+  Math.round(Math.random() * (max - min)) + min;
+```
+Compara ambas tablas y explica en un comentario qué error tiene la segunda versión y por qué se produce.
+---
+
+Ejercicio 10. Adivina el número
+
+El programa elige un número entre 1 y 100 y el usuario tiene 7 intentos para adivinarlo.
+Tras cada intento, el programa indica si el número secreto es mayor o menor.
+Al terminar, muestra si el usuario ha ganado y en cuántos intentos. Si ha perdido, muestra cuál era el número.
+Tendrás que decidir y justificar en comentarios:
+qué tipo de bucle utilizas;
+cómo tratas una entrada no válida (texto, decimales o números fuera de rango);
+qué ocurre si el usuario pulsa Cancelar (`prompt` devuelve `null`);
+por qué 7 intentos son siempre suficientes con una buena estrategia. Pista: búsqueda binaria.
+---
+Ampliación
+`Math.random()` no es criptográficamente seguro, así que no debe usarse para contraseñas, tokens o PINs reales. Para eso existe la API Web `crypto.getRandomValues()`.
+Rehaz el ejercicio 8 usando esta API. Explica en un comentario la diferencia entre ambos mecanismos y en qué casos usarías cada uno.
