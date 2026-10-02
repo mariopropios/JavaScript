@@ -1,0 +1,11 @@
+1. Consolidación
+    Crea un Map con los módulos 2º DAW y sus horas semanales. 
+    Muestra el total de horas, comprueba si existe un módulo y elimina otro.
+
+2. Aplicación
+    A partir de un array de pedidos {cliente,importe}, construye un Map con el gasto total por cliente 
+    e indica quién ha gastado más.
+
+3. Nivel reto
+    Agenda de contactos Map: alta, baja, búsqueda y listado alfabético. Justifica por qué has elegido 
+    Map y no un objeto o un array
