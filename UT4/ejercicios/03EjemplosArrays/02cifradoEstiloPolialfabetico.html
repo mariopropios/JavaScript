@@ -1,0 +1,47 @@
+/*
+    En el cifrado de la práctica anterior, cada letra se sustituye siempre por la misma letra
+    cifrada. Esto facilita mucho descifrar el mensaje, por ejemplo analizando qué caracteres
+    aparecen con más frecuencia.
+    Vamos a mejorarlo con una aplicación similar. Ahora la clave será una serie de cifras
+    (por ejemplo, 12345). Cada cifra de la clave indica el desplazamiento de un carácter del
+    mensaje. Cuando se acaban las cifras, se vuelve a empezar por la primera, es decir, la
+    clave se aplica de forma cíclica. 
+*/
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cifrado estilo polialfabético</title>
+  </head>
+  <body>
+    <script>
+      let texto = prompt("Escriba el texto que desea cifrar");
+      if (texto === null) texto = ""; // si pulsa Cancelar, texto vacío
+      // La clave solo puede contener cifras del 0 al 9
+      let clave;
+      let valida;
+      do {
+        clave = prompt("Escriba la clave (una serie de cifras)");
+        valida = clave !== null && clave !== "";
+        if (valida) {
+          for (let c of clave) {
+            if (c < "0" || c > "9") valida = false;
+          }
+        }
+        if (!valida) {
+          alert("La clave debe estar formada solo por cifras");
+        }
+      } while (!valida);
+      let resultado = "";
+      let i = 0; // i recorre las cifras de la clave
+      for (let letra of texto) {
+        let cifra = letra.charCodeAt(0) + Number(clave.charAt(i));
+        resultado += String.fromCharCode(cifra);
+        i++;
+        if (i === clave.length) i = 0; // la clave se aplica de forma cíclica
+      }
+      document.write(resultado);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+/*
+    El cifrado César consiste en sustituir cada letra de un mensaje por la que se encuentra un
+    número fijo de posiciones más adelante en el alfabeto. Ese número es la clave. Por
+    ejemplo, con clave 2 la letra A se convierte en C.
+    En el cifrado César clásico el alfabeto es circular: al llegar al final se vuelve al
+    principio, de modo que con clave 2 la Z se convierte en B. En esta práctica no usaremos
+    un alfabeto cerrado. Desplazaremos cada carácter en la tabla Unicode tantas posiciones
+    como indique la clave.
+    Crea una página que pida al usuario un texto y una clave, y que muestre ese mismo
+    texto con todos sus caracteres desplazados en la tabla Unicode el número de posiciones
+    indicado por la clave. 
+*/
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cifrado estilo César</title>
+</head>
+<body>
+  <p id="salida"></p>
+<script>
+  let texto = prompt("Escriba el texto que desea cifrar");
+  if (texto === null) texto = "";
+
+  let clave = prompt("Escriba la clave (un número entero)");
+  while (clave !== null && (clave.trim() === "" || isNaN(Number(clave)))) {
+    alert("No has escrito un número");
+    clave = prompt("Escriba la clave (un número entero)");
+  }
+  clave = (clave === null) ? 0 : Math.trunc(Number(clave));
+
+  let resultado = "";
+  for (let letra of texto) {
+    let cifra = letra.codePointAt(0) + clave;
+    if (cifra < 0 || cifra > 0x10FFFF) {
+      alert("La clave lleva un carácter fuera de la tabla Unicode");
+      resultado = "";
+      break;
+    }
+    resultado += String.fromCodePoint(cifra);
+  }
+  document.getElementById("salida").textContent = resultado;
+</script>
+</body>
+</html>
