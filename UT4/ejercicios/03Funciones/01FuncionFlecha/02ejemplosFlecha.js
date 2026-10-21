@@ -38,17 +38,17 @@ function estaAprobado(nota) {
   return nota >= 5;
 }
 // TODO: const estaAprobadoFlecha = ...
-const estaAprobadoFlecha = undefined;
+const estaAprobadoFlecha = nota => nota >=5;
 
 // 1.2 Reescribe como flecha. Pista: hay parÃ¡metro por defecto.
 function redondear(numero, decimales = 1) {
   return Math.round(numero * 10 ** decimales) / 10 ** decimales;
 }
 // TODO: const redondearFlecha = ...
-const redondearFlecha = undefined;
+const redondearFlecha = (numero, decimales = 1) => Math.round(numero * 10 ** decimales) / 10 ** decimales;
 
 // 1.3 Esta flecha devuelve undefined. Encuentra el error y corrÃ­gelo.
-const ficha = (nombre, nota) => { nombre, nota };
+const ficha = (nombre, nota) => ({ nombre, nota });
 
 
 // ------------------------------------------------------------
@@ -59,21 +59,27 @@ const ficha = (nombre, nota) => { nombre, nota };
 //     un array con los NOMBRES de los aprobados. Reutiliza estaAprobadoFlecha.
 //     Pista: filter + map.
 // TODO
-const nombresAprobados = undefined;
+const nombresAprobados = alumnos => alumnos.filter(a => estaAprobadoFlecha(a.nota)).map(a => a.nombre);
 
 // 2.2 Crea "notaMedia": recibe un array de alumnos y devuelve la media
 //     redondeada a 1 decimal (reutiliza redondearFlecha).
 //     Si el array estÃ¡ vacÃ­o, devuelve 0.
 //     Pista: for...of dentro de una flecha con llaves.
 // TODO
-const notaMedia = undefined;
+const notaMedia = alumnos => {
+  if (alumnos.length === 0) return 0;
+  let suma = 0;
+  for (const a of alumnos) suma += a.nota;
+  return redondearFlecha(suma / alumnos.length);
+};
 
 // 2.3 Crea "subirNotas": recibe un array de alumnos y una cantidad,
 //     y devuelve un NUEVO array con la nota de cada alumno subida en esa
 //     cantidad, sin pasar de 10. El array original NO debe modificarse.
 //     Pista: map + Math.min + spread de objetos { ...a, nota: ... }
 // TODO
-const subirNotas = undefined;
+const subirNotas = (alumnos, cantidad) =>
+  alumnos.map(a => ({ ...a, nota: Math.min(a.nota + cantidad, 10) }));
 
 
 // ------------------------------------------------------------
@@ -87,7 +93,13 @@ const subirNotas = undefined;
 //        const notables = crearFiltro(7);
 //        notables(alumnos)  â†’  [{Ana...}, {Carla...}]
 // TODO
-const crearFiltro = undefined;
+const crearFiltro = notaMinima => alumnos => alumnos.filter(a => a.nota >= notaMinima);
+
+const notables = crearFiltro(7);
+const aprobados = crearFiltro(5);
+
+notables(alumnos);  
+aprobados(alumnos);   
 
 // 3.2 (Explica con un comentario, sin cÃ³digo)
 //     Â¿Por quÃ© el siguiente mÃ©todo no funciona? Â¿CÃ³mo lo arreglarÃ­as?
@@ -96,7 +108,13 @@ const grupo = {
   describir: () => `Grupo ${this.nombre}`,
 };
 // TU RESPUESTA:
-//
+/*const grupo = {
+  nombre: '2º DAW',
+  describir() {
+    return `Grupo ${this.nombre}`;
+  },
+};
+grupo.describir();   // "Grupo 2º DAW"*/
 
 
 // ============================================================
