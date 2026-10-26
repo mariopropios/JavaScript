@@ -1,25 +1,16 @@
 /*
  * ============================================================
- *  UT4 Â· Funciones flecha â€” EJERCICIO PARA EL ALUMNO
- *  RA4 â†’ CE b) Se han creado y utilizado funciones definidas por el usuario
- *        CE d) Se han creado y utilizado arrays
- *        CE i) Se ha depurado y documentado el cÃ³digo
- *
- *  Instrucciones:
- *   - Completa cada TODO usando SOLO funciones flecha.
- *   - Usa retorno implÃ­cito siempre que el cuerpo sea una sola expresiÃ³n.
- *   - Ejecuta con: node 02_flecha_ejercicio.js
- *   - Cada apartado muestra "OK" o "FALLO" para que compruebes tu soluciÃ³n.
+ *  UT4 · Funciones flecha — EJERCICIO PARA EL ALUMNO
  * ============================================================
  */
 
-// Utilidad de comprobaciÃ³n (no hace falta modificarla)
+// Utilidad de comprobación (no hace falta modificarla)
 const comprobar = (apartado, obtenido, esperado) => {
   const ok = JSON.stringify(obtenido) === JSON.stringify(esperado);
-  console.log(`${ok ? 'OK   ' : 'FALLO'} ${apartado}`, ok ? '' : `â†’ obtenido: ${JSON.stringify(obtenido)} | esperado: ${JSON.stringify(esperado)}`);
+  console.log(`${ok ? 'OK   ' : 'FALLO'} ${apartado}`, ok ? '' : `→ obtenido: ${JSON.stringify(obtenido)} | esperado: ${JSON.stringify(esperado)}`);
 };
 
-// Datos de partida: notas de un grupo de 2Âº DAW
+// Datos de partida: notas de un grupo de 2º DAW
 const alumnos = [
   { nombre: 'Ana',    nota: 7.5 },
   { nombre: 'Bruno',  nota: 4.2 },
@@ -30,100 +21,94 @@ const alumnos = [
 
 
 // ------------------------------------------------------------
-// NIVEL 1 Â· CONSOLIDACIÃ“N: convertir a funciÃ³n flecha
+// NIVEL 1 · CONSOLIDACIÓN: convertir a función flecha
 // ------------------------------------------------------------
 
-// 1.1 Reescribe esta funciÃ³n como flecha con retorno implÃ­cito.
-function estaAprobado(nota) {
-  return nota >= 5;
-}
-// TODO: const estaAprobadoFlecha = ...
-const estaAprobadoFlecha = nota => nota >=5;
+// 1.1 Reescribe esta función como flecha con retorno implícito.
+// Como solo hay 1 parámetro (nota), no hacen falta paréntesis.
+const estaAprobadoFlecha = nota => nota >= 5;
 
-// 1.2 Reescribe como flecha. Pista: hay parÃ¡metro por defecto.
-function redondear(numero, decimales = 1) {
-  return Math.round(numero * 10 ** decimales) / 10 ** decimales;
-}
-// TODO: const redondearFlecha = ...
+// 1.2 Reescribe como flecha. Pista: hay parámetro por defecto.
+// Al haber 2 parámetros, los paréntesis (numero, decimales = 1) son obligatorios.
 const redondearFlecha = (numero, decimales = 1) => Math.round(numero * 10 ** decimales) / 10 ** decimales;
 
-// 1.3 Esta flecha devuelve undefined. Encuentra el error y corrÃ­gelo.
-const ficha = (nombre, nota) => ({ nombre, nota });
+// 1.3 Esta flecha devuelve undefined. Encuentra el error y corrígelo.
+// Ponemos paréntesis ({ ... }) para que JS sepa que devolvemos un objeto y no que abrimos función.
+const ficha = (nombre, nota) => ({ nombre: nombre, nota: nota });
 
 
 // ------------------------------------------------------------
-// NIVEL 2 Â· APLICACIÃ“N: flechas como callbacks
+// NIVEL 2 · APLICACIÓN: flechas como callbacks
 // ------------------------------------------------------------
 
-// 2.1 Crea "nombresAprobados": recibe un array de alumnos y devuelve
-//     un array con los NOMBRES de los aprobados. Reutiliza estaAprobadoFlecha.
-//     Pista: filter + map.
-// TODO
-const nombresAprobados = alumnos => alumnos.filter(a => estaAprobadoFlecha(a.nota)).map(a => a.nombre);
+// 2.1 Crea "nombresAprobados": filtra aprobados y luego saca solo sus nombres.
+const nombresAprobados = listaAlumnos =>
+  listaAlumnos
+    .filter(alumno => estaAprobadoFlecha(alumno.nota)) // 1º Nos quedamos con los objetos de alumnos aprobados
+    .map(alumno => alumno.nombre);                     // 2º De cada aprobado, extraemos solo su nombre
 
-// 2.2 Crea "notaMedia": recibe un array de alumnos y devuelve la media
-//     redondeada a 1 decimal (reutiliza redondearFlecha).
-//     Si el array estÃ¡ vacÃ­o, devuelve 0.
-//     Pista: for...of dentro de una flecha con llaves.
-// TODO
-const notaMedia = alumnos => {
-  if (alumnos.length === 0) return 0;
+// 2.2 Crea "notaMedia": suma las notas con for...of y divide entre el total.
+const notaMedia = listaAlumnos => {
+  if (listaAlumnos.length === 0) return 0;
+
   let suma = 0;
-  for (const a of alumnos) suma += a.nota;
-  return redondearFlecha(suma / alumnos.length);
+  for (const alumno of listaAlumnos) {
+    suma = suma + alumno.nota;
+  }
+
+  const media = suma / listaAlumnos.length;
+  return redondearFlecha(media);
 };
 
-// 2.3 Crea "subirNotas": recibe un array de alumnos y una cantidad,
-//     y devuelve un NUEVO array con la nota de cada alumno subida en esa
-//     cantidad, sin pasar de 10. El array original NO debe modificarse.
-//     Pista: map + Math.min + spread de objetos { ...a, nota: ... }
-// TODO
-const subirNotas = (alumnos, cantidad) =>
-  alumnos.map(a => ({ ...a, nota: Math.min(a.nota + cantidad, 10) }));
+// 2.3 Crea "subirNotas": devuelve un nuevo array subiendo la nota sin pasar de 10.
+// Nota: puedes usar { nombre: alumno.nombre, nota: ... } o { ...alumno, nota: ... }
+const subirNotas = (listaAlumnos, cantidad) =>
+  listaAlumnos.map(alumno => ({
+    ...alumno, // Copia todas las propiedades del alumno original (nombre, etc.)
+    nota: Math.min(alumno.nota + cantidad, 10) // Machaca la nota con la nueva (máximo 10)
+  }));
 
 
 // ------------------------------------------------------------
-// NIVEL 3 Â· RETO
+// NIVEL 3 · RETO
 // ------------------------------------------------------------
 
-// 3.1 Crea "crearFiltro": recibe una nota mÃ­nima y DEVUELVE UNA FUNCIÃ“N
-//     flecha que, dada una lista de alumnos, devuelve los que tienen
-//     una nota mayor o igual a esa mÃ­nima.
-//     Ejemplo de uso:
-//        const notables = crearFiltro(7);
-//        notables(alumnos)  â†’  [{Ana...}, {Carla...}]
-// TODO
-const crearFiltro = notaMinima => alumnos => alumnos.filter(a => a.nota >= notaMinima);
+// 3.1 Crea "crearFiltro": recibe notaMinima y devuelve OTRA función flecha que filtra alumnos.
+const crearFiltro = notaMinima => {
+  // Devolvemos la función flecha que espera recibir la lista de alumnos
+  return listaAlumnos => listaAlumnos.filter(alumno => alumno.nota >= notaMinima);
+};
 
-const notables = crearFiltro(7);
-const aprobados = crearFiltro(5);
+// (O en versión corta de una sola línea como tenías tú, ambas dan OK):
+// const crearFiltro = notaMinima => listaAlumnos => listaAlumnos.filter(alumno => alumno.nota >= notaMinima);
 
-notables(alumnos);  
-aprobados(alumnos);   
 
-// 3.2 (Explica con un comentario, sin cÃ³digo)
-//     Â¿Por quÃ© el siguiente mÃ©todo no funciona? Â¿CÃ³mo lo arreglarÃ­as?
+// 3.2 (Explica con un comentario, sin código)
+//     ¿Por qué el siguiente método no funciona? ¿Cómo lo arreglarías?
 const grupo = {
-  nombre: '2Âº DAW',
+  nombre: '2º DAW',
   describir: () => `Grupo ${this.nombre}`,
 };
 // TU RESPUESTA:
-/*const grupo = {
-  nombre: '2º DAW',
-  describir() {
-    return `Grupo ${this.nombre}`;
-  },
-};
-grupo.describir();   // "Grupo 2º DAW"*/
+/*
+ * ¿Por qué no funciona?:
+ * Porque las funciones flecha NO tienen su propio "this". En lugar de apuntar
+ * al objeto "grupo", el "this" busca en el ámbito exterior (global), donde
+ * "nombre" no existe, por lo que this.nombre devuelve undefined ("Grupo undefined").
+ *
+ * ¿Cómo lo arreglarías?:
+ * Cambiando la función flecha por un método tradicional de objeto:
+ * describir() { return `Grupo ${this.nombre}`; }
+ * Así "this" sí apunta al objeto "grupo".
+ */
 
 
 // ============================================================
 // COMPROBACIONES (no modificar)
 // ============================================================
-// Cada comprobaciÃ³n va protegida: si un apartado falla, los demÃ¡s se siguen evaluando
 const probar = (apartado, prueba) => {
   try { prueba(); }
-  catch (error) { console.log(`PENDIENTE ${apartado} â†’ ${error.message}`); }
+  catch (error) { console.log(`PENDIENTE ${apartado} → ${error.message}`); }
 };
 
 probar('1.1', () => comprobar('1.1', [estaAprobadoFlecha(4.9), estaAprobadoFlecha(5)], [false, true]));
