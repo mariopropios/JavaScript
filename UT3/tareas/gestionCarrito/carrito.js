@@ -26,6 +26,7 @@ const carrito = {
             console.warm(`No hay stock suficiente de ${nombre}`);
             return false;
         }
+        //4º Si el producto ya está en el carrito
     }
 
 }
