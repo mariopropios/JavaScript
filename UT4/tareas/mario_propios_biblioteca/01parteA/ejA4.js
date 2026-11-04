@@ -26,7 +26,7 @@ for (const correo of enMinusculas) {
 
 console.log("3. Frecuencia de cada correo:");
 for (const [correo, cantidad] of conteo) {
-  console.log(`${correo} → ${cantidad}`);
+  console.log(`${correo} -> ${cantidad}`);
 }
 
 // 4. Convertir el Set del apartado 2 en un array ordenado alfabéticamente
