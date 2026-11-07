@@ -80,12 +80,14 @@ function resumen(libros){
   const total = libros.length;
   const disponibles = librosDisponibles(libros).length;
   const prestados = total - disponibles;
+
   // Juntamos todas las valoraciones de todos los libros en un único array
   const todasLasNotas = libros.reduce((acum, libro) => acum.concat(libro.valoraciones), []);
   const sumaGlobal = todasLasNotas.reduce((acum, nota) => acum + nota, 0);
   const mediaGlobal = todasLasNotas.length > 0
     ? Math.round((sumaGlobal / todasLasNotas.length) * 10) / 10
     : null;
+
   // Buscamos el libro con el año más pequeño (más antiguo)
   const libroMasAntiguo = libros.reduce((masViejo, actual) =>
     actual.anio < masViejo.anio ? actual : masViejo
@@ -104,8 +106,88 @@ function resumen(libros){
 // R8: funciones que generan HTML (devuelven un string)
 // ---------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------
-// Programa principal
-// ---------------------------------------------------------------------------
-// mostrar("#catalogo", tablaLibros(LIBROS));
-// ...
+// 1. HTML resumen biblioteca
+function htmlResumen(datos) {
+  return `
+    <ul>
+      <li>Total de libros: <strong>${datos.total}</strong></li>
+      <li>Disponibles: <strong>${datos.disponibles}</strong></li>
+      <li>Prestados: <strong>${datos.prestados}</strong></li>
+      <li>Valoración media global: <strong>${datos.mediaGlobal ?? "Sin valorar"}</strong></li>
+      <li>Libro más antiguo: <strong>${datos.masAntiguo ?? "Ninguno"}</strong></li>
+    </ul>
+  `;
+}
+
+// 2. HTML libros del catálogo
+function tablaLibros(libros) {
+  const filas = libros
+    .map(libro => {
+      const media = valoracionMedia(libro);
+      return `
+        <tr class="${libro.prestado ? "prestado" : ""}">
+          <td>${libro.id}</td>
+          <td>${libro.titulo}</td>
+          <td>${libro.autor}</td>
+          <td>${libro.genero}</td>
+          <td>${libro.anio}</td>
+          <td>${libro.prestado ? "Prestado" : "Disponible"}</td>
+          <td>${media !== null ? media : "Sin valorar"}</td>
+        </tr>`;
+    })
+    .join("");
+  return `
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Género</th>
+          <th>Año</th>
+          <th>Estado</th>
+          <th>Valoración</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filas}
+      </tbody>
+    </table>
+  `;
+}
+
+// 3. HTML lista generos
+function listaGeneros(lista) {
+  const filas = lista.map(g => `<li>${g}</li>`).join("");
+  return `<ul>${filas}</ul>`;
+}
+
+// 4. HTML ranking libros mejores valorados
+function listaRanking(lista) {
+  const filas = lista
+    .map(libro => `<li>${libro.titulo} (${valoracionMedia(libro)})</li>`)
+    .join("");
+  return `<ol>${filas}</ol>`;
+}
+
+// 5. HTML de autores y su cantidad de libros
+function listaAutores(mapa) {
+  const filas = [...mapa]
+    .map(([autor, cantidad]) => `<li>${autor} → ${cantidad}</li>`)
+    .join("");
+  return `<ul>${filas}</ul>`;
+}
+
+// ----- PROGRAMA PRINCIPAL ----
+
+// Forma 1 de hacerlo:
+const arrayResumen = resumen(LIBROS);
+const htmlDeResumen = htmlResumen(arrayResumen);
+mostrar("#resumen", htmlDeResumen);
+//mostrar("#resumen", htmlResumen(resumen(LIBROS)));
+
+// Forma 2 de hacerlo (resumida)
+mostrar("#catalogo", tablaLibros(LIBROS));
+mostrar("#generos", listaGeneros(generos(LIBROS)));
+mostrar("#ranking", listaRanking(ranking(LIBROS)));
+mostrar("#autores", listaAutores(librosPorAutor(LIBROS)));
