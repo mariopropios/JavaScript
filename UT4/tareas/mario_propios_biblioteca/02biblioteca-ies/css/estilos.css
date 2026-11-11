@@ -24,3 +24,24 @@ section {
   padding: 1rem;
   margin-bottom: 1rem;
 }
+
+/*Estilos para la tabla del catálogo y libros prestados (R8)*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #eaeaea;
+}
+
+.prestado {
+  background-color: #ffe5e5;
+  color: #900;
+}
