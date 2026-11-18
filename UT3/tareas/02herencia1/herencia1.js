@@ -25,7 +25,7 @@ class Ordenador{
 
 // Vamos a crear una subclase portatil dentro de la clase Ordenador
 class Portatil extends Ordenador{
-    constructor(marca,modelo,ram = 4,disco = 512,pulgadas = 17, autonomia = 4)
+    constructor(marca,modelo,ram = 4,disco = 256,pulgadas = 12, autonomia = 4)
     {
         // 1. Para que sepa cuales son los atributos que hereda
         super(marca,modelo,ram,disco,pulgadas);
@@ -44,9 +44,9 @@ class Portatil extends Ordenador{
 
 // 1. Creamos diferentes objetos ordenador
 const ordenador1 = new Ordenador("HP", "EliteBook");
-const ordenador2 = new Ordenador("Dell", "OptiPlex", 16, 1000, 24);
-const portatil1 = new Portatil("Lenovo", "ThinkPad");
-const portatil2 = new Portatil("Apple", "MacBook Air", 16, 1000, 13, 18);
+const ordenador2 = new Ordenador("Dell", "Opti", 16, 1000, 24);
+const portatil1 = new Portatil("Lenovo", "Tuf");
+const portatil2 = new Portatil("Apple", "MacBook", 16, 1000, 13, 18);
 
 // Visualizamos
 console.log("Ordenador básico:   ", ordenador1.toString());
