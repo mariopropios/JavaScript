@@ -134,7 +134,7 @@ for (const genero of listaGeneros) {
 }
 
 // 4) Los 5 más antiguos
-const cincoAntiguos = catalogo.ordenarPor("anio", true).slice(0, 5);
+const cincoAntiguos = catalogo.ordenarPor("annio", true).slice(0, 5);
 seccionesIndice.push({ id: "mas-antiguos", titulo: "Más antiguos" });
 pintarSeccion("Los 5 libros más antiguos", cincoAntiguos, "mas-antiguos");
 
