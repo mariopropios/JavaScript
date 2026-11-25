@@ -21,7 +21,7 @@ function pintarSeccion(titulo, lista, idSeccion) {
           <h3 class="tarjeta-titulo">${libro.titulo}</h3>
           <p class="tarjeta-autor">${libro.autor}</p>
           <ul class="tarjeta-datos">
-            <li>Año: ${libro.anio}</li>
+            <li>Año: ${libro.annio}</li>
             <li>Páginas: ${libro.paginas}</li>
             <li>Género: ${libro.genero}</li>
             <li>Antigüedad: ${libro.antiguedad()} años</li>
@@ -91,7 +91,7 @@ console.table(catalogo.libros.map(function (l) {
   return {
     titulo: l.titulo,
     autor: l.autor,
-    anio: l.anio,
+    anio: l.annio,
     paginas: l.paginas,
     genero: l.genero,
     disponible: l.disponible

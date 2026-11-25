@@ -1,4 +1,4 @@
-class Libro {
+export class Libro {
     constructor(titulo,autor,annio,paginas,genero,disponible = true)
     {
         this.titulo = titulo;
@@ -12,7 +12,7 @@ class Libro {
     // --- MÉTODOS DE LIBRO
 
     prestar() {
-        if(this.disponible === true){
+        if(this.disponible === false){
             return false;
         }
 
@@ -31,10 +31,10 @@ class Libro {
 
     antiguedad() {
         const anioActual = new Date().getFullYear();
-        return anioActual - this.anio;
+        return anioActual - this.annio;
     }
 
     resumen() {
-        return `${this.titulo} — ${this.autor} (${this.anio})`;
+        return `${this.titulo} — ${this.autor} (${this.annio})`;
     }
 }

@@ -1,6 +1,6 @@
 import {Libro} from "./libro.js";
 
-class Biblioteca{
+export class Biblioteca{
     constructor()
     {
         this.libros = [];
