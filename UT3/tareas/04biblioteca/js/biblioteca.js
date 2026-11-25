@@ -61,7 +61,7 @@ export class Biblioteca{
 
     filtrarPorGenero(genero){
         return this.libros.filter(function (libro) {
-            return libro.disponible === disponible;
+            return libro.genero === genero;
         });
     }
 
