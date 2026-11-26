@@ -59,7 +59,7 @@ function masCaro(lista) {
 function dentroDePresupuesto(lista, maximo) {
   return lista
     .filter((equipo) => equipo.precio() <= maximo)
-    .sort(Ordenador.compararPorPrecio);
+    .sort(Ordenador.compararPrecio);
 }
 
 // F) importe total por marcas
@@ -76,3 +76,70 @@ function totalPorMarca(lista){
 
   return totales;
 }
+
+// G) Suma gb de ram a los equipos de esa clase
+function ampliarRam(lista, clase, gb) {
+  lista
+    .filter((equipo) => equipo instanceof clase)
+    .forEach((equipo) => {
+      equipo.ram += gb;
+    });
+}
+
+// --- PRUEBAS
+
+mostrarInventario(inventario);
+
+console.log("Portátiles (con tablets):", contarPortatiles(inventario)); // 4
+
+console.log("Solo Portatil:", contarSoloPortatiles(inventario));       // 2
+
+const caro = masCaro(inventario);
+
+console.log("Más caro:", caro.toString(), "→", caro.precio().toFixed(2), "€");
+
+const baratos = dentroDePresupuesto(inventario, 700);
+
+console.log("Dentro de 700 €:", baratos.length);
+
+mostrarInventario(baratos);
+
+const totales = totalPorMarca(inventario);
+
+console.log("--- Totales por marca ---");
+
+for (const marca in totales) {
+  console.log(`${marca}: ${totales[marca].toFixed(2)} €`);
+}
+
+describir(inventario[4]); // el iPad
+
+ampliarRam(inventario, Portatil, 8);
+
+console.log("Tras ampliarRam(Portatil, 8):");
+
+mostrarInventario(inventario);
+
+// --- PREGUNTAS (Parte 7) --
+/*
+1) contarPortatiles usa instanceof Portatil, así que también cuenta las Tablet
+   (una Tablet es un Portatil por herencia). contarSoloPortatiles mira
+   constructor.name === "Portatil" y excluye las Tablet. Por eso 4 frente a 2.
+
+2) Se llama polimorfismo: cada objeto ejecuta su propia versión de precio().
+   Para una Tablet se ejecuta Tablet.precio() (que usa super.precio() del Portatil).
+
+3) Tablet reutiliza el del padre con super.precio() y solo suma el lápiz.
+   Servidor sustituye el cálculo por completo (no usa super). Conviene super
+   cuando el precio base sigue valiendo; conviene sustituir cuando la fórmula
+   es distinta (como el servidor).
+
+4) describir recorre solo las propiedades propias del objeto (for...in).
+   precio y toString son métodos del prototipo, no propiedades enumerables.
+
+5) Sí cambia el inventario original: los objetos se pasan por referencia.
+   ampliarRam modifica equipo.ram de esos mismos objetos.
+
+6) ampliarRam(inventario, Ordenador, 8) sumaría 8 GB a TODOS, porque Portatil,
+   Tablet, Servidor y Gaming también son instanceof Ordenador.
+*/

@@ -25,6 +25,16 @@ class Ordenador{
         return `${this.marca} ${this.modelo} - RAM: ${this.ram} GB, Disco: ${this.disco} GB y Pantalla: ${this.pulgadas}"`;
     }
 
+    /**
+    - Compara dos equipos por precio (para sort).
+    @param {Ordenador} a
+    @param {Ordenador} b
+    @returns {number}
+    */
+    static compararPrecio(a,b){
+        return a.precio() - b.precio();
+    }
+
 }
 
 // ORDENADOR -> PORTATIL
@@ -93,7 +103,7 @@ class Gaming extends Ordenador{
     constructor(marca, modelo, grafica, ram = 16, disco = 1024, pulgadas = 27)
     {
         if(!grafica){
-            console.warn("La tarjeta gráfica es obligatoria");
+            throw new Error("La tarjeta gráfica es obligatoria");
         }
 
         super(marca, modelo, ram, disco, pulgadas);
