@@ -6,7 +6,7 @@ al cargar la página, sin interacción del usuario.
 ## Cómo abrirlo
 
 1. Abre la carpeta `biblioteca` en VS Code.
-2. Usa **Live Server** (los módulos ES no funcionan con doble clic / `file://`).
+2. Usa **Live Server** (los módulos ES no funcionan con doble clic.
 3. Abre la consola (F12): verás `console.table` y la simulación de préstamos.
 
 ## Capturas
