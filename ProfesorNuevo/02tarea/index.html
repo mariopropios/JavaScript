@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tienda fiesta</title>
+
+    <script defer src="script.js"></script>
+
+    <style>
+        #formulario{
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+        }
+        #lista_productos{
+            margin-top: 50px;
+        }
+        label, button{
+            margin-top: 10px;
+        }
+        table, th,td{
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid black;
+            max-width: 200px;
+            min-width: 100px;
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body>
+
+    <h1>Breska</h1>
+
+    <div id="form">
+        <h2>Formulario productos</h2>
+        <form id="formulario">
+            <label for="id">ID:</label>
+            <input id="id" type="text" placeholder="id">
+
+            <label for="nombre">NOMBRE:</label>
+            <input id="nombre" type="text" placeholder="nombre producto">
+
+            <button id="btn" type="submit">AÑADIR</button>
+        </form>
+    </div>
+
+    <div id="lista_productos">
+        <h2>Lista productos</h2>
+        <table>
+            <tbody id="tabla_productos">
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                </tr>
+                <tr>
+                    <td>1234</td>
+                    <td>zapato</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
