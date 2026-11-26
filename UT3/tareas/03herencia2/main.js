@@ -61,3 +61,18 @@ function dentroDePresupuesto(lista, maximo) {
     .filter((equipo) => equipo.precio() <= maximo)
     .sort(Ordenador.compararPorPrecio);
 }
+
+// F) importe total por marcas
+function totalPorMarca(lista){
+    const totales = {};
+
+    lista.forEach((equipo) => {
+        if (!totales[equipo.marca]) {
+            totales[equipo.marca] = 0;
+        }
+
+        totales[equipo.marca] += equipo.precio();
+    });
+
+  return totales;
+}
