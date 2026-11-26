@@ -17,7 +17,7 @@ class Ordenador{
     // Metodo precio
     precio()
     {
-        return 200 * this.ram * 10 + this.disco * 0.1 + this.pulgadas * 5;
+        return 200 + this.ram * 10 + this.disco * 0.1 + this.pulgadas * 5;
     }
     // Metodo visualizar ordenador
     toString()
@@ -33,6 +33,10 @@ class Portatil extends Ordenador{
     {
         super(marca,modelo,ram,disco,pulgadas);
         this.autonomia = autonomia;
+    }
+
+    precio(){
+        return super.precio() + 100 + this.autonomia * 15;
     }
 
     // Visualiza los datos del ordenador
@@ -85,7 +89,7 @@ class Servidor extends Ordenador{
 }
 
 // ORDENADOR -> GAMING
-class Servidor extends Ordenador{
+class Gaming extends Ordenador{
     constructor(marca, modelo, grafica, ram = 16, disco = 1024, pulgadas = 27)
     {
         if(!grafica){
