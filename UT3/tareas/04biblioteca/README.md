@@ -11,7 +11,12 @@ al cargar la página, sin interacción del usuario.
 
 ## Capturas
 
-*(captura de la página, captura de la consola sin errores y captura del validador W3C)*
+### Aplicación y consola
+![Página de la biblioteca](capturas/cap_v1.png)
+![Consola con console.table y simulación](capturas/cap_v2.png)
+
+### Validador W3C
+![Validador W3C sin errores](capturas/cap_v3.png)
 
 ## Arquitectura
 

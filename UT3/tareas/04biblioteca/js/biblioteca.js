@@ -1,6 +1,10 @@
 import {Libro} from "./libro.js";
 
+// Encapsula el catálogo de libros y las operaciones de consulta
+
 export class Biblioteca{
+
+    // Crea una biblioteca vacía.
     constructor()
     {
         this.libros = [];
@@ -8,6 +12,11 @@ export class Biblioteca{
 
     // --- MÉTODOS DE BIBLIOTECA
 
+    /**
+    - Añade un libro solo si es instancia de Libro.
+    @param {Libro} libro Libro a añadir.
+    @returns {boolean} true si se añadió; false si el tipo no era válido.
+   */
     agregar(libro){
         if(!(libro instanceof Libro)){
             console.warn("Solo se admiten instancias de los libros");
@@ -17,6 +26,12 @@ export class Biblioteca{
         return true;
     }
 
+    /**
+    - Carga libros desde un texto (una línea por libro; campos separados por ;).
+    - Formato: titulo;autor;annio;paginas;genero;si|no
+    @param {string} texto Bloque de texto con varios libros.
+    @returns {number} Cantidad de libros añadidos.
+   */
     cargarDesdeTexto(texto){
         const lineas = texto.trim().split("\n");
         let cuantos = 0;
@@ -51,6 +66,11 @@ export class Biblioteca{
         return cuantos;
     }
 
+    /**
+    - Busca libros cuyo título o autor contienen el texto (sin mayúsculas/minúsculas).
+    @param {string} texto Texto a buscar.
+    @returns {Libro[]} Libros que coinciden.
+   */
     buscar(texto){
         const t = texto.toLowerCase();
         return this.libros.filter(function (libro) {
@@ -59,18 +79,34 @@ export class Biblioteca{
         });
     }
 
+    /**
+    - Filtra los libros de un género concreto.
+    @param {string} genero Género buscado.
+    @returns {Libro[]} Libros de ese género.
+   */
     filtrarPorGenero(genero){
         return this.libros.filter(function (libro) {
             return libro.genero === genero;
         });
     }
 
+    /**
+    - Filtra por disponibilidad.
+    @param {boolean} disponible true = disponibles | false = prestados.
+    @returns {Libro[]} Libros filtrados.
+   */
     filtrarPorDisponibilidad(disponible){
         return this.libros.filter(function(libro){
             return libro.disponible === disponible;
         });
     }
 
+    /**
+    - Ordena una copia del catálogo sin modificar el array original.
+    @param {"titulo"|"autor"|"annio"|"paginas"} campo - Campo de ordenación.
+    @param {boolean} [ascendente=true] - true = A→Z / menor→mayor.
+    @returns {Libro[]} Nueva lista ordenada.
+   */
     ordenarPor(campo, ascendente = true){
         const copia = this.libros.slice();
 
@@ -95,6 +131,10 @@ export class Biblioteca{
         return copia;
     }
 
+    /**
+    - Obtiene los géneros únicos del catálogo.
+    @returns {string[]} Array de géneros sin repetir, ordenados.
+   */
     generos(){
 
         const set = new Set(this.libros.map(function (l) {
@@ -106,6 +146,10 @@ export class Biblioteca{
         });
     }
 
+    /**
+    - Calcula estadísticas del catálogo.
+    @returns {{total:number, disponibles:number, prestados:number, mediaPaginas:number, masAntiguo:string, porGenero:Map<string, number>}}
+   */
     estadisticas(){
         const total = this.libros.length;
 
@@ -122,7 +166,7 @@ export class Biblioteca{
         const mediaPaginas = total === 0 ? 0 : Math.round(sumaPaginas / total);
 
         const masViejo = this.libros.reduce(function (viejo, actual) {
-            if (actual.anio < viejo.anio) {
+            if (actual.annio < viejo.annio) {
                 return actual;
             }
             return viejo;

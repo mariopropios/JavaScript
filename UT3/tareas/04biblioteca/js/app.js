@@ -1,7 +1,18 @@
 import { catalogo } from "./biblioteca.js";
 
+/**
+  - Texto de búsqueda usado en una de las vistas (RF5).
+  @type {string}
+ */
 const TEXTO_BUSQUEDA = "de";
 
+/**
+  - Pinta una sección con tarjetas de libros.
+  @param {string} titulo Título de la sección.
+  @param {Libro[]} lista Libros a mostrar.
+  @param {string} idSeccion id HTML de la sección (para el índice).
+  @returns {void}
+ */
 function pintarSeccion(titulo, lista, idSeccion) {
 
   const contenedor = document.querySelector("#contenido");
@@ -41,6 +52,11 @@ function pintarSeccion(titulo, lista, idSeccion) {
   `;
 }
 
+/**
+  - Genera el índice con enlaces a cada sección
+  @param {{id:string, titulo:string}[]} secciones Secciones pintadas.
+  @returns {void}
+ */
 function pintarIndice(secciones) {
   const nav = document.querySelector("#indice");
   nav.innerHTML = secciones.map(function (s) {
@@ -48,6 +64,10 @@ function pintarIndice(secciones) {
   }).join("");
 }
 
+/**
+  - Pinta el panel de estadísticas del catálogo
+  @returns {void}
+ */
 function pintarEstadisticas() {
   const caja = document.querySelector("#panel-estadisticas");
   const e = catalogo.estadisticas();
@@ -72,6 +92,10 @@ function pintarEstadisticas() {
   `;
 }
 
+/**
+  - Simula préstamos y devoluciones antes de pintar las vistas.
+  @returns {void}
+ */
 function simularPrestamos() {
   console.log("--- Simulación de préstamos ---");
 
